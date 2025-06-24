@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>McTech Ninjaworks Timer</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, viewport-fit=cover">
+    </head>
+
+    <style>
+        @font-face {
+            font-family: sevensegment;
+            src: url(timer.ttf);
+        }
+
+        html {
+            font-family: sevensegment;
+            background-color: black;
+            color: white;
+            scroll-behavior: smooth;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        body {
+            width: 100%;
+            height: 100%;
+        }
+
+        #display {
+            font-size: 20vw;
+            text-align: center;
+            color: red;
+            font-optical-sizing: 10px;
+        }
+    </style>
+
+    <body>
+        <h1 id="display">00:00.00</h1>
+
+        <script src="./socket.io.min.js"></script>
+        <script>
+            var socket = io();
+
+            let timeLimit = 0;
+            let timeFormat = "";
+            let stopwatch = false;
+
+            let oldTime = 0;
+
+            function startTimer() {
+                startTime = null;
+                now = performance.now();
+
+                timerStarted = true;
+                updateTimer();
+            }
+
+            function stopTimer() {
+                timerStarted = false;
+            }
+
+            const display = document.getElementById("display");
+
+            let elapsed = 0;
+            let elapsed1 = 0;
+            let elapsed2 = 0;
+
+            function updateTimer() {
+                if (!startTime) startTime = now;
+
+                if (stopwatch) {
+                    elapsed1 = now - startTime;
+                } else {
+                    elapsed1 = now - startTime;
+                    elapsed2 = elapsed1 + oldTime;
+                    elapsed = 60000 - elapsed2;
+                }
+
+                //const elapsed = elapsed1 + oldTime;
+                now = performance.now();
+                console.log(performance.now());
+
+                const minutes = Math.floor(elapsed / 60000);
+                const seconds = Math.floor((elapsed % 60000) / 1000);
+                const hundredths = Math.floor((elapsed % 1000) / 10);
+
+                const m = String(minutes).padStart(2, '0');
+                const s = String(seconds).padStart(2, '0');
+                const h = String(hundredths).padStart(2, '0');
+
+                display.textContent = `${m}:${s}.${h}`
+
+                if (timerStarted) { requestAnimationFrame(updateTimer); }
+            }
+
+            socket.on("timer_start", function(timeconfig){
+                console.log("started");
+                if (timeconfig.timeformat === "mins") {
+                    timeFormat = timeconfig.timeFormat * 60000;
+                } else if (timeconfig.timeformat === "mins") {
+                    timeFormat = timeconfig.timeFormat * 60000;
+                }
+
+                if (timeconfig.coursetype === "stopwatch") {
+                    stopwatch = true;
+                } else {
+                    stopwatch = false;
+                }
+
+                startTimer();
+            })
+
+            socket.on("update_controls", function() {
+                document.getElementById("display").style.color = "white";
+                document.body.style.backgroundColor = "white";
+                setTimeout(function() {
+                    document.getElementById("display").style.color = "red";
+                    document.body.style.backgroundColor = "black";
+                }, 100);
+            })
+
+            socket.on("timer_finished", function() {
+                stopTimer();
+
+                flash();
+                document.getElementById("display").style.color = "red";
+                document.body.style.backgroundColor = "black";
+
+                reset();
+            })
+
+            socket.on("timer_failed", function() {
+                stopTimer();
+                
+                document.getElementById("display").style.color = "white";
+                document.body.style.backgroundColor = "red";
+
+                reset();
+            })
+
+            function flash() {
+                setTimeout(function() {
+                    document.getElementById("display").style.color = "blue";
+                    document.body.style.backgroundColor = "red";
+
+                    setTimeout(function() {
+                        document.getElementById("display").style.color = "red";
+                        document.body.style.backgroundColor = "blue";
+                    }, 100);
+                }, 100);
+
+                setTimeout(function() {
+                    document.getElementById("display").style.color = "blue";
+                    document.body.style.backgroundColor = "red";
+
+                    setTimeout(function() {
+                        document.getElementById("display").style.color = "red";
+                        document.body.style.backgroundColor = "blue";
+                    }, 100);
+                }, 250);
+
+                setTimeout(function() {
+                    document.getElementById("display").style.color = "blue";
+                    document.body.style.backgroundColor = "red";
+
+                    setTimeout(function() {
+                        document.getElementById("display").style.color = "red";
+                        document.body.style.backgroundColor = "blue";
+                    }, 100);
+                }, 350);
+
+                setTimeout(function(){
+                    document.getElementById("display").style.color = "red";
+                    document.body.style.backgroundColor = "black";
+                }, 500)
+            }
+
+            function reset() {
+                setTimeout(function() {
+                    document.getElementById("display").style.color = "red";
+                    document.body.style.backgroundColor = "black";
+                    document.getElementById("display").innerHTML = "00:00.00";
+                }, 5000);
+            }
+
+            socket.on("timer_pause", function() {
+                oldTime = elapsed2;
+                stopTimer();
+                document.body.style.backgroundColor = "blue";
+            })
+
+            socket.on("timer_resume", function() {
+                startTimer();
+                document.body.style.backgroundColor = "black";
+            })
+        </script>
+    </body>
+</html>

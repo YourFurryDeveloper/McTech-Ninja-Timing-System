@@ -10,7 +10,7 @@ socketio = SocketIO(app)
 
 logging.getLogger('werkzeug').setLevel(logging.ERROR)
 
-os.system("clear")
+#os.system("clear")
 
 def getCurRunner():
     with open("runner_data.json", "r") as runnerdatraw:

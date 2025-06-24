@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>McTech Ninjaworks Controller</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, viewport-fit=cover">
+    </head>
+
+    <style>
+        html {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            background-color: black;
+            color: white;
+            scroll-behavior: smooth;
+        }
+
+        #btnpanel {
+            scroll-snap-align: top;
+            scroll-snap-type: y mandatory;
+        }
+
+        #startbtn, #failbtn, #finishbtn {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            font-size: 25px;
+            height: 100px;
+            border: 1px solid;
+            margin: 5px;
+            border-radius: 10px;
+            outline: none;
+            flex-basis: 100%;
+        }
+
+        #obstaclebtn {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            font-size: 25px;
+            height: 200px;
+            border: 1px solid;
+            margin: 5px;
+            border-radius: 10px;
+            outline: none;
+            flex-basis: 100%;
+        }
+
+        #pausebtn, #resumebtn {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            font-size: 25px;
+            height: 100px;
+            border: 1px solid;
+            margin: 5px;
+            border-radius: 10px;
+            outline: none;
+            flex-basis: 100%;
+        }
+
+        .btn {
+            border: 1px solid black;
+            color: black;
+            min-width: 100px;
+        }
+
+        #startbtn {
+            background-color: rgb(0, 218, 0);
+        }
+
+        #startbtn:active {
+            background-color: green;
+        }
+
+        #failbtn {
+            background-color: red;
+        }
+
+        #failbtn:active {
+            background-color: rgb(153, 0, 0);
+        }
+
+        #finishbtn {
+            background-color: yellow;
+        }
+
+        #finishbtn:active {
+            background-color: rgb(147, 147, 0);
+        }
+
+        #obstaclebtn {
+            background-color: rgb(104, 255, 78);
+        }
+
+        #obstaclebtn:active {
+            background-color: rgb(21, 142, 0);
+        }
+
+        #pausebtn {
+            background-color: rgb(252, 126, 0);
+        }
+
+        #pausebtn:active {
+            background-color: rgb(151, 75, 0);
+        }
+
+        #resumebtn {
+            background-color: rgb(0, 101, 252);
+        }
+
+        #resumebtn:active {
+            background-color: rgb(0, 59, 148);
+        }
+    </style>
+
+    <body>
+        <h3 id="currunner">Current runner:</h3>
+        <h4 id="obstaclenum" style="color: lightgray;">Obstacles Completed:</h4>
+        <h4 id="lastobstacle" style="color: lightgray;">Last Obstacle:</h4>
+        <h4 id="runnertime" style="color: lightgray;">Time: 00:00.00</h4>
+        <hr>
+
+        <div id="btnpanel">
+            <div style="display: flex;">
+                <button id="failbtn" class="btn" onclick="sendBtnPress('failed')">FAIL</button>
+                <button id="finishbtn" class="btn" onclick="sendBtnPress('finished')">FINISH</button>
+                <button id="startbtn" class="btn" onclick="sendBtnPress('running')">START</button>
+            </div>
+
+            <div style="display: flex;">
+                <button id="obstaclebtn" class="btn" onclick="sendBtnPress('obstacle')">OBSTACLE</button>
+            </div>
+
+            <div style="display: flex;">
+                <button id="pausebtn" class="btn" onclick="sendBtnPress('pause')">PAUSE</button>
+                <button id="resumebtn" class="btn" onclick="sendBtnPress('resume')">RESUME</button>
+            </div>
+        </div>
+
+        <script src="./socket.io.min.js"></script>
+        <script>
+            var socket = io();
+
+            let curRunner = "";
+
+            let timerStarted = false;
+            let startTime = null;
+            let oldTime = 0;
+            let now = "000000";
+
+            function sendBtnPress(btn) {
+                socket.emit("btnpressed", btn );
+
+                window.navigator = window.navigator || {};
+                navigator.vibrate(300);
+
+                if (btn === "running") {
+                    oldTime = 0;
+                    startTimer();
+                } else if (btn === "finished" || btn === "failed" || btn === "pause") {
+                    timerStarted = false;
+                } else if (btn === "resume") {
+                    timerStarted = true;
+                    updateTimer();
+                    document.getElementById("runnertime").style.backgroundColor = "transparent";
+                }
+
+                if (btn === "pause") {
+                    document.getElementById("runnertime").style.backgroundColor = "blue";
+                    oldTime = now - startTime;
+                }
+            }
+
+            function startTimer() {
+                startTime = null;
+                now = performance.now();
+
+                timerStarted = true;
+                updateTimer();
+            }
+
+            const display = document.getElementById("runnertime");
+
+            function updateTimer() {
+                if (!startTime) startTime = now;
+                const elapsed1 = now - startTime;
+                const elapsed = elapsed1 + oldTime;
+                now = performance.now();
+
+                const minutes = Math.floor(elapsed / 60000);
+                const seconds = Math.floor((elapsed % 60000) / 1000);
+                const hundredths = Math.floor((elapsed % 1000) / 10);
+
+                const m = String(minutes).padStart(2, '0');
+                const s = String(seconds).padStart(2, '0');
+                const h = String(hundredths).padStart(2, '0');
+
+                display.textContent = `Time: ${m}:${s}.${h}`
+
+                if (timerStarted) { requestAnimationFrame(updateTimer); }
+            }
+
+            socket.on("update_controls", function(response){
+                document.getElementById("currunner").innerHTML = `Current Runner: ${response["currunner"]}`
+                document.getElementById("obstaclenum").innerHTML = `Obstacles Completed: ${response["obstacles_completed"]}`
+                document.getElementById("lastobstacle").innerHTML = `Last Obstacle: ${response["last_obstacle"]}`
+            })
+        </script>
+    </body>
+</html>

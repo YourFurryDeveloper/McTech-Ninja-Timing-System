@@ -7,6 +7,8 @@ ____
 
 If you know how to create a Python Flask webserver and how to deploy it, you probably know how to use this program lol, but I'm making a full-fledged tutorial for people who don't know how to do any of that.
 
+##### NOTE: This will need to be run on a computer or laptop.
+
 ### Table Of Contents
 [How to install Python](#python-installation)
 

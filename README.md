@@ -1,5 +1,7 @@
 # McTech Ninja Timing System
 A cool recreation of the ninja timing and leaderboard system I made just for fun in 2 days while at Worlds!
+
+#### If you have any inquiries or need help, contact me at mctechdev@icloud.com.
 ____
 <br />
 
@@ -115,6 +117,9 @@ When the competitor completes an obstacle, press obstacle.
 To pause and resume the time, use those buttons.
 
 If you aren't using a second phone as the buzzer, then just press finish when the runner completes the course or fail if they fall or fail to complete it depending on what kind of course you are doing. If they run out of time, they will automatically be failed.
+
+<br />
+#### If you have any inquiries or need help, contact me at mctechdev@icloud.com.
 ____
 ____
 <br />

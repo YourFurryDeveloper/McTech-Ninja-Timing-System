@@ -42,6 +42,10 @@ def config():
 def timer():
     return render_template("timer.html")
 
+@app.route("/buzzer")
+def buzzer():
+    return render_template("buzzer.html")
+
 @app.route("/runner_data.json")
 def runnerfile():
     return send_file("./runner_data.json")

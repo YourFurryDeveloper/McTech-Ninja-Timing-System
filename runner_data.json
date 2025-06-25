@@ -1,20 +1,20 @@
 {
-    "Owen Barber": {
-        "division": "Teen Male",
-        "place_runorder": 0,
-        "place": 0,
-        "result": "Poo",
-        "time": "0:3.5",
-        "obstacles": 2,
-        "status": "failed"
-    },
     "Graham Barber": {
         "division": "Kids Male",
         "place_runorder": 1,
         "place": 0,
         "result": "",
-        "time": "0:1.32",
+        "time": "",
         "obstacles": 0,
-        "status": "finished"
+        "status": "waiting"
+    },
+    "Owen Barber": {
+        "division": "Teen Male",
+        "place_runorder": 2,
+        "place": 0,
+        "result": "",
+        "time": "",
+        "obstacles": 0,
+        "status": "waiting"
     }
 }

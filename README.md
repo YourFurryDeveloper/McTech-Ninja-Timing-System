@@ -123,4 +123,10 @@ ____
 | ![image](https://github.com/user-attachments/assets/dc612f56-af8d-4c59-aa7f-c1ebdc6d47e8) | ![image](https://github.com/user-attachments/assets/c4d185b7-973a-4800-b1f2-e2fa94b854c8) |
 | <img src="https://github.com/user-attachments/assets/43798f5d-3cfa-455b-b0c0-51025e6bb351" width=40% height=40%> |
 
+<br />
 ### My IRL setup
+I use my phone for the controls, an iPhone 5S on a tripod for the buzzer, my Mac or TV for the leaderboard, and a Raspberry Pi in a SmartPiTouch case running FullPageOS for the timer!
+
+| ![image](https://github.com/user-attachments/assets/44cb5b80-f789-4601-9180-40b722ef59f1) | ![image](https://github.com/user-attachments/assets/3afc8029-fb0c-4242-af63-bb3d8519d4be) |
+|----|----|
+| ![image](https://github.com/user-attachments/assets/879737fb-099e-420a-9756-3f20de9e4b35) | ![image](https://github.com/user-attachments/assets/42702e2c-0f98-4755-8ba1-f82bbc75d89e) |

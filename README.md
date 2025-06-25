@@ -1,5 +1,5 @@
-# Ninjaworks-Timing-System-Recreation
-A cool recreation of the NinjaWorks timing and leaderboard system I made just for fun in 2 days while at Worlds!
+# McTech Ninja Timing System
+A cool recreation of the ninja timing and leaderboard system I made just for fun in 2 days while at Worlds!
 ____
 <br />
 

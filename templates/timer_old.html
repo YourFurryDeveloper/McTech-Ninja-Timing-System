@@ -53,29 +53,30 @@
             let timerStarted = false;
             let stopwatch = false;
 
-            const display = document.getElementById("display");
-
-            socket.on("timer_start", function(timeconfig) {
+            socket.on("timer_start", function(timeconfig){
                 console.log("started");
 
                 if (timeconfig.timeformat === "mins") {
                     timeLimit = timeconfig.timelimit * 60000;
                 } else if (timeconfig.timeformat === "secs") {
-                    timeLimit = timeconfig.timelimit * 1000;
+                    timeFormat = timeconfig.timelimit * 6000;
                 }
 
-                stopwatch = timeconfig.coursetype === "stopwatch";
+                if (timeconfig.coursetype === "stopwatch") {
+                    stopwatch = true;
+                } else {
+                    stopwatch = false;
+                }
 
-                // Reset state for a clean start
-                startTime = null;
-                oldTime = 0;
-                elapsed = 0;
-                elapsed1 = 0;
-                elapsed2 = 0;
-                timerStarted = false;
+                let startTime = null;
+                let oldTime = 0;
+                let elapsed = 0;
+                let elapsed1 = 0;
+                let elapsed2 = 0;
+                let timerStarted = false;
 
                 startTimer();
-            });
+            })
 
             socket.on("update_controls", function() {
                 document.getElementById("display").style.color = "white";
@@ -84,7 +85,7 @@
                     document.getElementById("display").style.color = "red";
                     document.body.style.backgroundColor = "black";
                 }, 100);
-            });
+            })
 
             socket.on("timer_finished", function() {
                 stopTimer();
@@ -94,16 +95,16 @@
                 document.body.style.backgroundColor = "black";
 
                 reset();
-            });
+            })
 
             socket.on("timer_failed", function() {
                 stopTimer();
-
+                
                 document.getElementById("display").style.color = "white";
                 document.body.style.backgroundColor = "red";
 
                 reset();
-            });
+            })
 
             function flash() {
                 setTimeout(function() {
@@ -136,10 +137,10 @@
                     }, 100);
                 }, 350);
 
-                setTimeout(function() {
+                setTimeout(function(){
                     document.getElementById("display").style.color = "red";
                     document.body.style.backgroundColor = "black";
-                }, 500);
+                }, 500)
             }
 
             function reset() {
@@ -148,7 +149,7 @@
                     document.body.style.backgroundColor = "black";
                     document.getElementById("display").innerHTML = "00:00.00";
 
-                    // FULLY reset timer state
+                    // Reset timer state variables
                     startTime = null;
                     oldTime = 0;
                     elapsed = 0;
@@ -158,13 +159,15 @@
                 }, 5000);
             }
 
+            const display = document.getElementById("display");
+
             socket.on("timer_pause", function() {
                 stopTimer();
                 document.body.style.backgroundColor = "blue";
             });
 
             socket.on("timer_resume", function() {
-                startTime = performance.now(); // Resume from paused time
+                startTime = performance.now(); // Reset startTime on resume
                 startTimer();
                 document.body.style.backgroundColor = "black";
             });
@@ -176,7 +179,7 @@
 
             function stopTimer() {
                 timerStarted = false;
-                oldTime += elapsed1; // Save time so it resumes correctly
+                //oldTime = elapsed2; // Save accumulated time on pause
             }
 
             function updateTimer() {
@@ -192,7 +195,7 @@
                     elapsed = elapsed1 + oldTime;
                 } else {
                     elapsed2 = elapsed1 + oldTime;
-                    elapsed = Math.max(timeLimit - elapsed2, 0);
+                    elapsed = Math.max(timeLimit - elapsed2, 0); // Prevent negative time
                 }
 
                 const minutes = Math.floor(elapsed / 60000);
@@ -207,7 +210,6 @@
 
                 requestAnimationFrame(updateTimer);
             }
-
         </script>
     </body>
 </html>

@@ -16,7 +16,10 @@ If you know how to create a Python Flask webserver and how to deploy it, you pro
 
 [How To Control It and Use the Leaderboard](#how-to-control-it-and-use-the-leaderboard)
 
+
 [Gallery](#gallery)
+* [The Pages](#the-pages)
+* [My Setup](#my-irl-setup)
 ____
 ____
 <br />
@@ -124,6 +127,7 @@ ____
 | <img src="https://github.com/user-attachments/assets/43798f5d-3cfa-455b-b0c0-51025e6bb351" width=40% height=40%> |
 
 <br />
+
 ### My IRL setup
 I use my phone for the controls, an iPhone 5S on a tripod for the buzzer, my Mac or TV for the leaderboard, and a Raspberry Pi in a SmartPiTouch case running FullPageOS for the timer!
 

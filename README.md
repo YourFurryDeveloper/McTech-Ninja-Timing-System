@@ -113,5 +113,11 @@ If you aren't using a second phone as the buzzer, then just press finish when th
 ____
 ____
 <br />
+<br />
 
 ## Gallery
+![image](https://github.com/user-attachments/assets/be5fd056-d5a4-4b2e-9960-75fe589cc07a)
+![image](https://github.com/user-attachments/assets/b6de2ab6-68da-418a-a330-9144c21bb47d)
+![image](https://github.com/user-attachments/assets/43798f5d-3cfa-455b-b0c0-51025e6bb351)
+![image](https://github.com/user-attachments/assets/c4d185b7-973a-4800-b1f2-e2fa94b854c8)
+![image](https://github.com/user-attachments/assets/dc612f56-af8d-4c59-aa7f-c1ebdc6d47e8)

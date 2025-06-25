@@ -15,6 +15,8 @@ If you know how to create a Python Flask webserver and how to deploy it, you pro
 [Configuring The System](#configuring-the-system)
 
 [How To Control It and Use the Leaderboard](#how-to-control-it-and-use-the-leaderboard)
+
+[Gallery](#gallery)
 ____
 ____
 <br />
@@ -107,4 +109,9 @@ When the competitor completes an obstacle, press obstacle.
 
 To pause and resume the time, use those buttons.
 
-If you aren't using a second phone as the buzzer, then just press finish when the runner completes the course or fail if they fail to complete it.
+If you aren't using a second phone as the buzzer, then just press finish when the runner completes the course or fail if they fall or fail to complete it depending on what kind of course you are doing. If they run out of time, they will automatically be failed.
+____
+____
+<br />
+
+## Gallery

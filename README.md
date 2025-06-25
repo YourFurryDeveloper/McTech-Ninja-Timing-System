@@ -7,9 +7,14 @@ If you know how to create a Python Flask webserver and how to deploy it, you pro
 
 ### Table Of Contents
 [How to install Python](#python-installation)
+[Installing The Dependencies](#installing-the-dependencies)
 
 ____
 ____
 ### Python Installation
 
-First, go to the [Python website](https://python.org)
+First, go to the [Python download page](https://python.org/downloads), and click the button that says `'Download Python X.XX.X'` (As of right now, it is 3.13.5.)
+
+Once you have downloaded it, install it (obviously), and just use and follow all the default instructions and settings in the installer.
+____
+### Installing The Dependencies

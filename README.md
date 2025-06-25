@@ -7,6 +7,7 @@ If you know how to create a Python Flask webserver and how to deploy it, you pro
 
 ### Table Of Contents
 [How to install Python](#python-installation)
+
 [Installing The Dependencies](#installing-the-dependencies)
 
 ____

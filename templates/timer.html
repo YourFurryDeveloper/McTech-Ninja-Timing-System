@@ -193,6 +193,9 @@
                 } else {
                     elapsed2 = elapsed1 + oldTime;
                     elapsed = Math.max(timeLimit - elapsed2, 0);
+                    if (elapsed === 0) {
+                        socket.emit("btnpressed", "failed" );
+                    }
                 }
 
                 const minutes = Math.floor(elapsed / 60000);

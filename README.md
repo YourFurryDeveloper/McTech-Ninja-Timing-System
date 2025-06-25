@@ -97,4 +97,12 @@ On the /controller page, you will see 6 buttons.
 * Start (Starts the timer with NO COUNTDOWN)
 * Obstacle (Press this when the runner completes an obstacle.)
 * Pause (Pauses the timer)
-* Resume (Resumes the timer)
+* Resume (Resumes the timer
+
+<br />
+
+At the beginning of the course, press start. This will start the timer with no countdown.
+
+When the competitor completes an obstacle, press obstacle.
+
+To pause and resume the time, use those buttons.

@@ -106,3 +106,5 @@ At the beginning of the course, press start. This will start the timer with no c
 When the competitor completes an obstacle, press obstacle.
 
 To pause and resume the time, use those buttons.
+
+If you aren't using a second phone as the buzzer, then just press finish when the runner completes the course or fail if they fail to complete it.

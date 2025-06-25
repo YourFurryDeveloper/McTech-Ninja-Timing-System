@@ -18,6 +18,8 @@ First, go to the [Python download page](https://python.org/downloads), and click
 
 Once you have downloaded it, install it (obviously), and just use and follow all the default instructions and settings in the installer.
 ____
+<br />
+
 ### Installing The Dependencies
 
 Now that you have downloaded and installed Python, you will need to install the project and its dependencies.

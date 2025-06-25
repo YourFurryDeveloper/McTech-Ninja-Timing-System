@@ -8,7 +8,7 @@ import time
 app = Flask(__name__)
 socketio = SocketIO(app)
 
-logging.getLogger('werkzeug').setLevel(logging.ERROR)
+#logging.getLogger('werkzeug').setLevel(logging.ERROR)
 
 #os.system("clear")
 

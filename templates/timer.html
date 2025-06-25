@@ -42,58 +42,6 @@
         <script>
             var socket = io();
 
-            let timeLimit = 0;
-            let timeFormat = "";
-            let stopwatch = false;
-
-            let oldTime = 0;
-
-            function startTimer() {
-                startTime = null;
-                now = performance.now();
-
-                timerStarted = true;
-                updateTimer();
-            }
-
-            function stopTimer() {
-                timerStarted = false;
-            }
-
-            const display = document.getElementById("display");
-
-            let elapsed = 0;
-            let elapsed1 = 0;
-            let elapsed2 = 0;
-
-            function updateTimer() {
-                if (!startTime) startTime = now;
-
-                if (stopwatch) {
-                    elapsed1 = now - startTime;
-                } else {
-                    elapsed1 = now - startTime;
-                    elapsed2 = elapsed1 + oldTime;
-                    elapsed = 60000 - elapsed2;
-                }
-
-                //const elapsed = elapsed1 + oldTime;
-                now = performance.now();
-                console.log(performance.now());
-
-                const minutes = Math.floor(elapsed / 60000);
-                const seconds = Math.floor((elapsed % 60000) / 1000);
-                const hundredths = Math.floor((elapsed % 1000) / 10);
-
-                const m = String(minutes).padStart(2, '0');
-                const s = String(seconds).padStart(2, '0');
-                const h = String(hundredths).padStart(2, '0');
-
-                display.textContent = `${m}:${s}.${h}`
-
-                if (timerStarted) { requestAnimationFrame(updateTimer); }
-            }
-
             socket.on("timer_start", function(timeconfig){
                 console.log("started");
                 if (timeconfig.timeformat === "mins") {
@@ -107,6 +55,12 @@
                 } else {
                     stopwatch = false;
                 }
+
+                let startTime = null;
+                let oldTime = 0;
+                let elapsed = 0;
+                let elapsed1 = 0;
+                let elapsed2 = 0;
 
                 startTimer();
             })
@@ -184,16 +138,68 @@
                 }, 5000);
             }
 
+            let timeLimit = 0;
+            let timeFormat = "";
+
+            let startTime = null;
+            let oldTime = 0;
+            let elapsed = 0;
+            let elapsed1 = 0;
+            let elapsed2 = 0;
+            let timerStarted = false;
+            let stopwatch = false; // Set to true if using stopwatch mode
+
+            const display = document.getElementById("display");
+
             socket.on("timer_pause", function() {
-                oldTime = elapsed2;
                 stopTimer();
                 document.body.style.backgroundColor = "blue";
-            })
+            });
 
             socket.on("timer_resume", function() {
+                startTime = performance.now(); // Reset startTime on resume
                 startTimer();
                 document.body.style.backgroundColor = "black";
-            })
+            });
+
+            function startTimer() {
+                timerStarted = true;
+                requestAnimationFrame(updateTimer);
+            }
+
+            function stopTimer() {
+                timerStarted = false;
+                oldTime = elapsed2; // Save accumulated time on pause
+            }
+
+            function updateTimer() {
+                if (!timerStarted) return;
+
+                const now = performance.now();
+
+                if (!startTime) startTime = now;
+
+                elapsed1 = now - startTime;
+
+                if (stopwatch) {
+                    elapsed = elapsed1 + oldTime;
+                } else {
+                    elapsed2 = elapsed1 + oldTime;
+                    elapsed = Math.max(60000 - elapsed2, 0); // Prevent negative time
+                }
+
+                const minutes = Math.floor(elapsed / 60000);
+                const seconds = Math.floor((elapsed % 60000) / 1000);
+                const hundredths = Math.floor((elapsed % 1000) / 10);
+
+                const m = String(minutes).padStart(2, '0');
+                const s = String(seconds).padStart(2, '0');
+                const h = String(hundredths).padStart(2, '0');
+
+                display.textContent = `${m}:${s}.${h}`;
+
+                requestAnimationFrame(updateTimer);
+            }
         </script>
     </body>
 </html>

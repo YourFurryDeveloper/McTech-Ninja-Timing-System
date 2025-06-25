@@ -74,8 +74,7 @@ def handle_button(button):
         global old_time
         end_time = time.time()
 
-        elapsed = end_time - start_time
-        elapsed = elapsed + old_time
+        elapsed = (end_time - start_time) + old_time  # ← Add previous time only here
 
         minutes = int(elapsed // 60)
         seconds = int(elapsed % 60)
@@ -92,22 +91,26 @@ def handle_button(button):
                 json.dump(runnerdat, runnerdatdump, indent=4)
 
     elif button == "pause":
-        old_time = time.time() - start_time
+        old_time += time.time() - start_time  # ← Accumulate pause duration
+        start_time = None  # ← Mark timer as paused
         print(old_time)
         emit("timer_pause", broadcast=True)
 
     elif button == "resume":
-        start_time = time.time()
+        start_time = time.time()  # ← Resume from now
         emit("timer_resume", broadcast=True)
-        
+
     elif button == "running":
         start_time = time.time()
-        if button == "running":
-            old_time = 0
+        old_time = 0  # ← Reset accumulated time on fresh run
 
         with open("comp_config.json", "r") as compconfigraw:
             compconfig = json.load(compconfigraw)
-            emit("timer_start", { "timelimit": compconfig["time_limit"], "timeformat": compconfig["comp_timetype"], "coursetype": compconfig["comp_type"] }, broadcast=True)
+            emit("timer_start", {
+                "timelimit": compconfig["time_limit"],
+                "timeformat": compconfig["comp_timetype"],
+                "coursetype": compconfig["comp_type"]
+            }, broadcast=True)
 
         with open("runner_data.json", "r") as runnerdatraw:
             runnerdat = json.load(runnerdatraw)
@@ -117,7 +120,7 @@ def handle_button(button):
 
             for runner in runnerdat:
                 if not runner == getNextRunner():
-                    runnerdat[runner]["place_runorder"] = runnerdat[runner]["place_runorder"] - 1
+                    runnerdat[runner]["place_runorder"] -= 1
 
             with open("runner_data.json", "w") as runnerdatdump:
                 json.dump(runnerdat, runnerdatdump, indent=4)

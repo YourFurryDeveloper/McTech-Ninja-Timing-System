@@ -81,7 +81,7 @@ ____
 
 ### Configuring The System
 
-When you run it, you will see an output like this:
+When you run the program by terminal (if you're using the long way), or double-clicking on the exe (if you're using the pre-bundled app), you will see an output like this:
 
 ```
 WARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.

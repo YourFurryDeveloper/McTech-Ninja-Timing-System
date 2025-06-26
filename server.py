@@ -4,9 +4,15 @@ import logging
 import os
 import json
 import time
+import sys
 
-app = Flask(__name__)
-socketio = SocketIO(app)
+app = Flask(__name__, template_folder='templates')
+socketio = SocketIO(app, async_mode='threading')
+
+# Support for PyInstaller's temp folder
+if getattr(sys, 'frozen', False):
+    base_path = sys._MEIPASS
+    app.template_folder = os.path.join(base_path, 'templates')
 
 #logging.getLogger('werkzeug').setLevel(logging.ERROR)
 
@@ -175,4 +181,4 @@ def handle_runner_dat(obstacles):
     emit("compdumped")
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", debug="true")
+    socketio.run(app, host="0.0.0.0")

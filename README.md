@@ -35,9 +35,9 @@ ____
 
 ## Running The Prebuilt App
 
-If you are using Windows and don't want to go to all the trouble of installing everything, go to [the releases page](https://github.com/YourFurryDeveloper/McTech-Ninja-Timing-System/releases) and going to the newest release and clicking McTech-Ninja-Timing-System.exe.
+If you are using Windows and don't want to go to all the trouble of installing everything, go to [the releases page](https://github.com/YourFurryDeveloper/McTech-Ninja-Timing-System/releases) and going to the newest release and clicking McTech-Ninja-Timing-System.zip.
 
-Once you have downloaded the EXE file, just double-click to run it, and BOOM! MUCH easier! Then go to [Configuring The System](#configuring-the-system) to learn how to configure the system.
+Once you have downloaded the zip file, unzip it and then go into the `McTechDev-App` folder, and then just double-click `McTech-Ninja-Timing-System.exe` to run it, and BOOM! MUCH easier! Then go to [Configuring The System](#configuring-the-system) to learn how to configure the system.
 
 Note that you WILL NOT need to do any of the other steps except for configuring it and how to control it, as the whole program has been bundled and made MUCH easier for you.
 ____

@@ -11,10 +11,11 @@ If you know how to create a Python Flask webserver and how to deploy it, you pro
 
 #### NOTE: This will need to be run on a computer or laptop.
 
-### Table Of Contents
-[How to install Python](#python-installation)
+### Table Of Contents (If you are on Windows and want a WAAAY easier experience, I HIGHLY suggest going to [Running the prebuilt app](#running-the-prebuilt-app))
 
-[Installing The Dependencies](#installing-the-dependencies-and-running-it)
+[How to install Python (Skip if you are using the EXE)](#python-installation)
+
+[Installing The Dependencies (Skip if you are using the EXE)](#installing-the-dependencies-and-running-it)
 
 [Configuring The System](#configuring-the-system)
 
@@ -22,8 +23,22 @@ If you know how to create a Python Flask webserver and how to deploy it, you pro
 
 
 [Gallery](#gallery)
-* [The Pages](#the-pages)
+* [The Pages](#pages)
 * [My Setup](#my-irl-setup)
+____
+____
+<br />
+
+____
+____
+
+## Running The Prebuilt App
+
+If you are using Windows and don't want to go to all the trouble of installing everything, go to [the releases page](https://github.com/YourFurryDeveloper/McTech-Ninja-Timing-System/releases) and going to the newest release and clicking McTech-Ninja-Timing-System.exe.
+
+Once you have downloaded the EXE file, just double-click to run it, and BOOM! MUCH easier! Then go to [Configuring The System](#configuring-the-system) to learn how to configure the system.
+
+Note that you WILL NOT need to do any of the other steps except for configuring it and how to control it, as the whole program has been bundled and made MUCH easier for you.
 ____
 ____
 <br />

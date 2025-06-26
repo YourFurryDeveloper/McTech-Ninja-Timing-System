@@ -6,7 +6,14 @@ import json
 import time
 import sys
 
-app = Flask(__name__, template_folder='templates')
+if getattr(sys, 'frozen', False):
+    base_path = sys._MEIPASS  # Where bundled static/template files live (read-only)
+    data_path = os.getcwd()   # Where the EXE was launched — use this for reading/writing JSON files
+else:
+    base_path = os.path.abspath(".")
+    data_path = base_path
+
+app = Flask(__name__, template_folder=os.path.join(base_path, 'templates'))
 socketio = SocketIO(app, async_mode='threading')
 
 # Support for PyInstaller's temp folder
@@ -54,11 +61,11 @@ def buzzer():
 
 @app.route("/runner_data.json")
 def runnerfile():
-    return send_file("./runner_data.json")
+    return send_file(os.path.join(data_path, "runner_data.json"))
 
 @app.route("/comp_config.json")
 def configfile():
-    return send_file("./comp_config.json")
+    return send_file(os.path.join(data_path, "comp_config.json"))
 
 @app.route("/socket.io.min.js")
 def socketiofile():

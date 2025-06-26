@@ -1,0 +1,20 @@
+{
+    "Mr_McTech": {
+        "division": "Developer",
+        "place_runorder": 1,
+        "place": 0,
+        "result": "",
+        "time": "",
+        "obstacles": 0,
+        "status": "waiting"
+    },
+    "Little Brother": {
+        "division": "Kids Male",
+        "place_runorder": 2,
+        "place": 0,
+        "result": "",
+        "time": "",
+        "obstacles": 0,
+        "status": "waiting"
+    }
+}

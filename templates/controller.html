@@ -106,6 +106,26 @@
         #resumebtn:active {
             background-color: rgb(0, 59, 148);
         }
+
+        @keyframes bassbounce {
+            0% {
+                transform: scale(100%);
+            }
+
+            30% {
+                transform: scale(130%);
+            }
+
+            100% {
+                transform: scale(100%);
+            }
+        }
+
+        #song-image {
+            animation: bassbounce 0.3s;
+            animation-timing-function: ease-out;
+            animation-iteration-count: 1;
+        }
     </style>
 
     <body>

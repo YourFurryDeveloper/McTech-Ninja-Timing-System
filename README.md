@@ -12,6 +12,7 @@ If you know how to create a Python Flask webserver and how to deploy it, you pro
 #### NOTE: This will need to be run on a computer or laptop.
 
 ### Table Of Contents (If you are on Windows and want a WAAAY easier experience, I HIGHLY suggest going to [Running the prebuilt app](#running-the-prebuilt-app))
+<br />
 
 [How to install Python (Skip if you are using the EXE)](#python-installation)
 

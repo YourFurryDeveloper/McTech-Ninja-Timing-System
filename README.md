@@ -1,11 +1,15 @@
 # McTech Ninja Timing System
 A cool recreation of the ninja timing and leaderboard system I made just for fun in 2 days while at Worlds!
+
+#### If you have any inquiries or need help, contact me at mctechdev@icloud.com.
 ____
 <br />
 
 ## How to use it
 
 If you know how to create a Python Flask webserver and how to deploy it, you probably know how to use this program lol, but I'm making a full-fledged tutorial for people who don't know how to do any of that.
+
+#### NOTE: This will need to be run on a computer or laptop.
 
 ### Table Of Contents
 [How to install Python](#python-installation)
@@ -15,6 +19,11 @@ If you know how to create a Python Flask webserver and how to deploy it, you pro
 [Configuring The System](#configuring-the-system)
 
 [How To Control It and Use the Leaderboard](#how-to-control-it-and-use-the-leaderboard)
+
+
+[Gallery](#gallery)
+* [The Pages](#the-pages)
+* [My Setup](#my-irl-setup)
 ____
 ____
 <br />
@@ -107,4 +116,30 @@ When the competitor completes an obstacle, press obstacle.
 
 To pause and resume the time, use those buttons.
 
-If you aren't using a second phone as the buzzer, then just press finish when the runner completes the course or fail if they fail to complete it.
+If you aren't using a second phone as the buzzer, then just press finish when the runner completes the course or fail if they fall or fail to complete it depending on what kind of course you are doing. If they run out of time, they will automatically be failed.
+
+<br />
+
+#### If you have any inquiries or need help, contact me at mctechdev@icloud.com.
+
+____
+____
+<br />
+<br />
+
+## Gallery
+
+### Pages
+| ![image](https://github.com/user-attachments/assets/be5fd056-d5a4-4b2e-9960-75fe589cc07a) | ![image](https://github.com/user-attachments/assets/b6de2ab6-68da-418a-a330-9144c21bb47d) |
+|----|----|
+| ![image](https://github.com/user-attachments/assets/dc612f56-af8d-4c59-aa7f-c1ebdc6d47e8) | ![image](https://github.com/user-attachments/assets/c4d185b7-973a-4800-b1f2-e2fa94b854c8) |
+| <img src="https://github.com/user-attachments/assets/43798f5d-3cfa-455b-b0c0-51025e6bb351" width=40% height=40%> |
+
+<br />
+
+### My IRL setup
+I use my phone for the controls, an iPhone 5S on a tripod for the buzzer, my Mac or TV for the leaderboard, and a Raspberry Pi in a SmartPiTouch case running FullPageOS for the timer!
+
+| ![image](https://github.com/user-attachments/assets/44cb5b80-f789-4601-9180-40b722ef59f1) | ![image](https://github.com/user-attachments/assets/3afc8029-fb0c-4242-af63-bb3d8519d4be) |
+|----|----|
+| ![image](https://github.com/user-attachments/assets/879737fb-099e-420a-9756-3f20de9e4b35) | ![image](https://github.com/user-attachments/assets/42702e2c-0f98-4755-8ba1-f82bbc75d89e) |

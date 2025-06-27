@@ -1,3 +1,5 @@
+<img src="mctechtiming-appicon-256x256.png" width=10%>
+
 # McTech Ninja Timing System
 A cool recreation of the ninja timing and leaderboard system I made just for fun in 2 days while at Worlds!
 

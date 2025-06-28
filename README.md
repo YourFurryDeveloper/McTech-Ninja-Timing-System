@@ -100,6 +100,8 @@ To configure it though, go to that URL and add /config to it. You will see a con
 
 Fill out all the text boxes with the name of the competition, the division, and the name of the course. Once you have done that, select the course type.
 
+Once you have selected the course type, change the time limit (there will be no time limit box if you set the course type to stopwatch.) Enter the amount of minutes or seconds you want the limit to be. As of right now, if you have it set to minutes, the amount of minutes you can put in HAS to be an integer, NOT a floating point value such as a decimal. If you want to get more specific, change it to seconds, then enter the time you want in seconds. Sorry for the inconvenience. :3
+
 Once this is finished, scroll down to where it says Obstacles and click `Add obstacle`. Add all the obstacles in the course in the order that you want them to be run.
 
 Go down to the Competitors section, and repeat the same process as adding obstacles, but instead, fill out the competitor's info. The order you add them is the run order.

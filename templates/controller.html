@@ -232,10 +232,10 @@
             });
 
             function setControls(compconfig) {
-                if (compconfig.comp_type === "challenge") {
+                if (compconfig.comp_type === "flow") {
                     document.getElementById("pausebtn").style.display = "none";
                     document.getElementById("resumebtn").style.display = "none";
-                } else if (compconfig.comp_type === "flow" || compconfig.comp_type === "stopwatch") {
+                } else if (compconfig.comp_type === "challenge" || compconfig.comp_type === "stopwatch") {
                     document.getElementById("pausebtn").style.display = "unset";
                     document.getElementById("resumebtn").style.display = "unset";
                 }

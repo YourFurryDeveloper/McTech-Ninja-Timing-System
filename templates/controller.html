@@ -215,6 +215,32 @@
                 if (timerStarted) { requestAnimationFrame(updateTimer); }
             }
 
+            function checkCompConfig() {
+                console.log("e");
+
+                fetch('./comp_config.json')
+                .then(response => response.json())
+                .then(data => setControls(data))
+                .catch(error => console.error('Error fetching JSON:', error));
+            }
+
+            window.checkCompConfig = checkCompConfig; // <-- Make it accessible globally
+
+            document.addEventListener("DOMContentLoaded", function () {
+                console.log("DOM loaded");
+                checkCompConfig();
+            });
+
+            function setControls(compconfig) {
+                if (compconfig.comp_type === "challenge") {
+                    document.getElementById("pausebtn").style.display = "none";
+                    document.getElementById("resumebtn").style.display = "none";
+                } else if (compconfig.comp_type === "flow" || compconfig.comp_type === "stopwatch") {
+                    document.getElementById("pausebtn").style.display = "unset";
+                    document.getElementById("resumebtn").style.display = "unset";
+                }
+            }
+
             socket.on("update_controls", function(response){
                 document.getElementById("currunner").innerHTML = `Current Runner: ${response["currunner"]}`
                 document.getElementById("obstaclenum").innerHTML = `Obstacles Completed: ${response["obstacles_completed"]}`

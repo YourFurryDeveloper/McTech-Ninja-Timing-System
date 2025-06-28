@@ -77,7 +77,7 @@ Now, with Terminal/CMD open in the background, open Finder/File Explorer and fin
 
 Go back to Terminal and type cd and then a space, but don't press enter. Drag the folder of the project into Terminal, and now it should look something like `cd /path/to/the/folder/`. Press enter.
 
-Once you have done that, type `pip install -r requirements.txt` into the terminal. This will install the dependencies needed to run the project.
+Once you have done that, type `pip install -r requirements.txt` into the terminal. This will install the dependencies needed to run the project. (If that says `pip: command not found`, then type `python3 -m pip install -r requirements.txt` instead.)
 
 When it's finished, all you have to do is type `python3 server.py`, and it should be all ready to go!
 ____

@@ -90,11 +90,11 @@ When you run the program by terminal (if you're using the long way), or double-c
 ```
 WARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.
  *Running on all addresses (0.0.0.0)
- *Running on http://127.0.0.1:5000
- *Running on http://10.0.0.150:5000
+ *Running on http://127.0.0.1:49152
+ *Running on http://10.0.0.150:49152
 ```
 
-Where it says `Running on http://10.0.0.150:5000`, you will see something other than `10.0.0.150`. This is the address of the timing system. Open that URL in a browser on any device (preferably a computer). You will see the leaderboard!
+Where it says `Running on http://10.0.0.150:49152`, you will see something other than `10.0.0.150`. This is the address of the timing system. Open that URL in a browser on any device (preferably a computer). You will see the leaderboard!
 
 To configure it though, go to that URL and add /config to it. You will see a configuration screen.
 

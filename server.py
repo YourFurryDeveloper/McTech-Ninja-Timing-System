@@ -59,6 +59,10 @@ def timer():
 def buzzer():
     return render_template("buzzer.html")
 
+@app.route("/overlay")
+def overlay():
+    return render_template("streamoverlay.html")
+
 @app.route("/runner_data.json")
 def runnerfile():
     return send_file(os.path.join(data_path, "runner_data.json"))
@@ -121,17 +125,19 @@ def handle_button(button):
         start_time = time.time()
         old_time = 0  # ← Reset accumulated time on fresh run
 
-        with open("comp_config.json", "r") as compconfigraw:
-            compconfig = json.load(compconfigraw)
-            emit("timer_start", {
-                "timelimit": compconfig["time_limit"],
-                "timeformat": compconfig["comp_timetype"],
-                "coursetype": compconfig["comp_type"]
-            }, broadcast=True)
-
         with open("runner_data.json", "r") as runnerdatraw:
             runnerdat = json.load(runnerdatraw)
             runnerdat[getNextRunner()]["status"] = button
+            
+            with open("comp_config.json", "r") as compconfigraw:
+                compconfig = json.load(compconfigraw)
+                emit("timer_start", {
+                    "timelimit": compconfig["time_limit"],
+                    "timeformat": compconfig["comp_timetype"],
+                    "coursetype": compconfig["comp_type"],
+                    "runnername": runnerdat[getNextRunner()]["runner_name"],
+                    "runnerdivision": runnerdat[getNextRunner()]["division"]
+                }, broadcast=True)
 
             print(f"\nSet runner {getNextRunner()} status to {button}")
 

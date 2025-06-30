@@ -158,10 +158,19 @@
 
             let curRunner = "";
 
-            let timerStarted = false;
             let startTime = null;
             let oldTime = 0;
+            let elapsed = 0;
+            let elapsed1 = 0;
+            let elapsed2 = 0;
+            let timerStarted = false;
+
             let now = "000000";
+
+            let pauses = 0;
+            let compytpe = "";
+
+            const display = document.getElementById("runnertime");
 
             function sendBtnPress(btn) {
                 socket.emit("btnpressed", btn );
@@ -170,37 +179,90 @@
                 navigator.vibrate(300);
 
                 if (btn === "running") {
-                    oldTime = 0;
-                    startTimer();
-                } else if (btn === "finished" || btn === "failed" || btn === "pause") {
-                    timerStarted = false;
-                } else if (btn === "resume") {
-                    timerStarted = true;
-                    updateTimer();
-                    document.getElementById("runnertime").style.backgroundColor = "transparent";
-                }
+                    pauses = 0;
+                    document.getElementById("pausebtn").removeAttribute('disabled');
+                    document.getElementById("resumebtn").removeAttribute('disabled');
+                    document.getElementById("pausebtn").style.backgroundColor = "rgb(252, 126, 0)";
+                    document.getElementById("resumebtn").style.backgroundColor = "rgb(0, 101, 252)";
 
-                if (btn === "pause") {
+                    startTimer();
+                } else if (btn === "finished" || btn === "failed") {
+                    stopTimer();
+                } else if (btn === "resume") {
+                    //if (pauses === 3 && compytpe === "challenge") {
+                        //document.getElementById("resumebtn").setAttribute('disabled', '');
+                        //document.getElementById("resumebtn").style.backgroundColor = "gray";
+                        //resumeTimer();
+                        //document.getElementById("runnertime").style.backgroundColor = "transparent";
+                    //} else {
+                        //resumeTimer();
+                        //document.getElementById("runnertime").style.backgroundColor = "transparent";   
+                    //}
+                    resumeTimer();
+                    document.getElementById("runnertime").style.backgroundColor = "transparent";
+                } else if (btn === "pause") {
+                    //if (pauses === 3 && compytpe === "challenge") {
+                        //document.getElementById("pausebtn").setAttribute('disabled', '');
+                        //document.getElementById("pausebtn").style.backgroundColor = "gray";
+                    //} else if (pauses < 4 && compytpe === "challenge") {
+                        //pauses++;
+                        //document.getElementById("runnertime").style.backgroundColor = "blue";
+                        //pauseTimer();
+                    //}
                     document.getElementById("runnertime").style.backgroundColor = "blue";
-                    oldTime = now - startTime;
+                    pauseTimer();
                 }
             }
 
             function startTimer() {
-                startTime = null;
-                now = performance.now();
-
                 timerStarted = true;
                 updateTimer();
             }
 
-            const display = document.getElementById("runnertime");
+            function stopTimer() {
+                timerStarted = false;
+                oldTime += elapsed1; // Save time so it resumes correctly
+            }
+
+            function pauseTimer() {
+                stopTimer();
+            }
+
+            function resumeTimer() {
+                startTime = performance.now(); // Resume from paused time
+                startTimer();
+            }
+
+            function reset() {
+                display.innerHTML = "00:00.00";
+
+                // FULLY reset timer state
+                startTime = null;
+                oldTime = 0;
+                elapsed = 0;
+                elapsed1 = 0;
+                elapsed2 = 0;
+                timerStarted = false;
+            }
 
             function updateTimer() {
+                if (!timerStarted) return;
+
+                const now = performance.now();
+
                 if (!startTime) startTime = now;
-                const elapsed1 = now - startTime;
-                const elapsed = elapsed1 + oldTime;
-                now = performance.now();
+
+                elapsed1 = now - startTime;
+
+                //if (compytpe === "stopwatch") {
+                    //elapsed = elapsed1 + oldTime;
+                //} else {
+                    //elapsed2 = elapsed1 + oldTime;
+                    //elapsed = Math.max(timeLimit - elapsed2, 0);
+                    //if (elapsed === 0) {
+                        //socket.emit("btnpressed", "failed" );
+                    //}
+                //}
 
                 const minutes = Math.floor(elapsed / 60000);
                 const seconds = Math.floor((elapsed % 60000) / 1000);
@@ -210,9 +272,9 @@
                 const s = String(seconds).padStart(2, '0');
                 const h = String(hundredths).padStart(2, '0');
 
-                display.textContent = `Time: ${m}:${s}.${h}`
+                display.textContent = `${m}:${s}.${h}`;
 
-                if (timerStarted) { requestAnimationFrame(updateTimer); }
+                requestAnimationFrame(updateTimer);
             }
 
             function checkCompConfig() {
@@ -235,9 +297,11 @@
                 if (compconfig.comp_type === "flow") {
                     document.getElementById("pausebtn").style.display = "none";
                     document.getElementById("resumebtn").style.display = "none";
+                    compytpe = compconfig.comp_type;
                 } else if (compconfig.comp_type === "challenge" || compconfig.comp_type === "stopwatch") {
                     document.getElementById("pausebtn").style.display = "unset";
                     document.getElementById("resumebtn").style.display = "unset";
+                    compytpe = compconfig.comp_type;
                 }
             }
 

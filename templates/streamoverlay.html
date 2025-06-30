@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>McTech Ninja Stream Overlay</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, viewport-fit=cover">
+    </head>
+
+    <style>
+        @font-face {
+            font-family: sevensegment;
+            src: url(timer.ttf);
+        }
+
+        html {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: rgb(0, 255, 0);
+            color: white;
+            scroll-behavior: smooth;
+            display: flex;
+        }
+
+        body {
+            width: 100%;
+            height: 100%;
+        }
+
+        #display {
+            font-family: sevensegment;
+            font-size: 70px;
+            text-align: center;
+            color: red;
+            font-optical-sizing: 10px;
+            background-color: black;
+            width: fit-content;
+            padding: 15px;
+            border-radius: 5px;
+            position: fixed;
+            top: 0;
+            /*right: 50px;*/
+            right: -290px;
+            transition: right 0.5s;
+        }
+
+        #runnerinfo {
+            position: fixed;
+            /*bottom: 50px;*/
+            bottom: -150px;
+            right: 50px;
+            transition: bottom 0.5s;
+            overflow: hidden;
+            background-color: rgb(0, 0, 0);
+            padding-left: 10px;
+            padding-right: 70px;
+            border-radius: 10px;
+        }
+
+        #runnername {
+            color: white;
+        }
+
+        #runnerdivision {
+            color: gray;
+        }
+    </style>
+
+    <body>
+        <h1 id="display">00:00.00</h1>
+        <div id="runnerinfo">
+            <h1 id="runnername">Firstname Lastname</h1>
+            <h3 id="runnerdivision">Division</h3>
+        </div>
+
+        <script src="./socket.io.min.js"></script>
+        <script>
+            var socket = io();
+
+            let timeLimit = 0;
+            let timeFormat = "";
+
+            let startTime = null;
+            let oldTime = 0;
+            let elapsed = 0;
+            let elapsed1 = 0;
+            let elapsed2 = 0;
+            let timerStarted = false;
+            let stopwatch = false;
+
+            const display = document.getElementById("display");
+
+            socket.on("timer_start", function(timeconfig) {
+                console.log("started");
+
+                document.getElementById("runnername").innerHTML = timeconfig.runnername;
+                document.getElementById("runnerdivision").innerHTML = timeconfig.runnerdivision;
+
+                document.getElementById("runnerinfo").style.bottom = "50px";
+                document.getElementById("display").style.right = "50px";
+
+                if (timeconfig.timeformat === "mins") {
+                    timeLimit = timeconfig.timelimit * 60000;
+                } else if (timeconfig.timeformat === "secs") {
+                    timeLimit = timeconfig.timelimit * 1000;
+                }
+
+                stopwatch = timeconfig.coursetype === "stopwatch";
+
+                // Reset state for a clean start
+                startTime = null;
+                oldTime = 0;
+                elapsed = 0;
+                elapsed1 = 0;
+                elapsed2 = 0;
+                timerStarted = false;
+
+                startTimer();
+            });
+
+            socket.on("update_controls", function() {
+                document.getElementById("display").style.color = "white";
+                document.body.style.backgroundColor = "white";
+                setTimeout(function() {
+                    document.getElementById("display").style.color = "red";
+                    document.getElementById("display").style.backgroundColor = "black";
+                }, 100);
+            });
+
+            socket.on("timer_finished", function() {
+                stopTimer();
+
+                flash();
+                document.getElementById("display").style.color = "red";
+                document.getElementById("display").style.backgroundColor = "black";
+
+                reset();
+            });
+
+            socket.on("timer_failed", function() {
+                stopTimer();
+
+                document.getElementById("display").style.color = "white";
+                document.getElementById("display").style.backgroundColor = "red";
+
+                reset();
+            });
+
+            function flash() {
+                setTimeout(function() {
+                    document.getElementById("display").style.color = "blue";
+                    document.getElementById("display").style.backgroundColor = "red";
+
+                    setTimeout(function() {
+                        document.getElementById("display").style.color = "red";
+                        document.getElementById("display").style.backgroundColor = "blue";
+                    }, 100);
+                }, 100);
+
+                setTimeout(function() {
+                    document.getElementById("display").style.color = "blue";
+                    document.getElementById("display").style.backgroundColor = "red";
+
+                    setTimeout(function() {
+                        document.getElementById("display").style.color = "red";
+                        document.getElementById("display").style.backgroundColor = "blue";
+                    }, 100);
+                }, 250);
+
+                setTimeout(function() {
+                    document.getElementById("display").style.color = "blue";
+                    document.getElementById("display").style.backgroundColor = "red";
+
+                    setTimeout(function() {
+                        document.getElementById("display").style.color = "red";
+                        document.getElementById("display").style.backgroundColor = "blue";
+                    }, 100);
+                }, 350);
+
+                setTimeout(function() {
+                    document.getElementById("display").style.color = "red";
+                    document.getElementById("display").style.backgroundColor = "black";
+                }, 500);
+            }
+
+            function reset() {
+                setTimeout(function() {
+                    document.getElementById("display").style.color = "red";
+                    document.getElementById("display").style.backgroundColor = "black";
+                    document.getElementById("display").innerHTML = "00:00.00";
+                    document.getElementById("runnerinfo").style.bottom = "-150px";
+                    document.getElementById("display").style.right = "-290px";
+
+                    // FULLY reset timer state
+                    startTime = null;
+                    oldTime = 0;
+                    elapsed = 0;
+                    elapsed1 = 0;
+                    elapsed2 = 0;
+                    timerStarted = false;
+                }, 5000);
+            }
+
+            socket.on("timer_pause", function() {
+                stopTimer();
+                document.getElementById("display").style.backgroundColor = "blue";
+            });
+
+            socket.on("timer_resume", function() {
+                startTime = performance.now(); // Resume from paused time
+                startTimer();
+                document.getElementById("display").style.backgroundColor = "black";
+            });
+
+            function startTimer() {
+                timerStarted = true;
+                updateTimer();
+            }
+
+            function stopTimer() {
+                timerStarted = false;
+                oldTime += elapsed1; // Save time so it resumes correctly
+            }
+
+            function updateTimer() {
+                if (!timerStarted) return;
+
+                const now = performance.now();
+
+                if (!startTime) startTime = now;
+
+                elapsed1 = now - startTime;
+
+                if (stopwatch) {
+                    elapsed = elapsed1 + oldTime;
+                } else {
+                    elapsed2 = elapsed1 + oldTime;
+                    elapsed = Math.max(timeLimit - elapsed2, 0);
+                    if (elapsed === 0) {
+                        socket.emit("btnpressed", "failed" );
+                    }
+                }
+
+                const minutes = Math.floor(elapsed / 60000);
+                const seconds = Math.floor((elapsed % 60000) / 1000);
+                const hundredths = Math.floor((elapsed % 1000) / 10);
+
+                const m = String(minutes).padStart(2, '0');
+                const s = String(seconds).padStart(2, '0');
+                const h = String(hundredths).padStart(2, '0');
+
+                display.textContent = `${m}:${s}.${h}`;
+
+                requestAnimationFrame(updateTimer);
+            }
+
+        </script>
+    </body>
+</html>

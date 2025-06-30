@@ -1,6 +1,16 @@
-<img src="mctechtiming-appicon-256x256.png" width=10%>
+<h1 align="center">McTech Ninja Timing System</h1>
+<p align="center"><img src="mctechtiming-appicon-256x256.png" width=10%></p>
 
-# McTech Ninja Timing System
+<p align="center">
+  <img src="https://img.shields.io/badge/License-blue?style=plastic&logo=check&label=MIT">
+  <img src="https://img.shields.io/badge/Solo_dev-green?style=flat-square">
+  <img src="https://img.shields.io/badge/Useful_for_gyms-orange?style=flat-square">
+  <img src="https://img.shields.io/badge/Open_source-lightgreen?style=flat-square">
+  <img src="https://img.shields.io/github/last-commit/YourFurryDeveloper/McTech-Ninja-Timing-System/main?style=plastic">
+</p>
+
+____
+<br />
 A cool recreation of the ninja timing and leaderboard system I made just for fun in 2 days while at Worlds!
 
 #### If you have any inquiries or need help, contact me at mctechdev@icloud.com.
@@ -37,7 +47,7 @@ ____
 
 ## Running The Prebuilt App
 
-If you are using Windows and don't want to go to all the trouble of installing everything, go to [the latest release](https://github.com/YourFurryDeveloper/McTech-Ninja-Timing-System/releases/tag/V1.1.4) and click McTechDev-App-Windows.zip.
+If you are using Windows and don't want to go to all the trouble of installing everything, go to [the latest release](https://github.com/YourFurryDeveloper/McTech-Ninja-Timing-System/releases/latest) and click McTechDev-App-Windows.zip.
 
 Once you have downloaded the zip file, unzip it and then go into the `McTechDev-App` folder (it may be nested inside another folder, depending on how you unzipped it.), and then just double-click `McTech-Ninja-Timing-System.exe` to run it, and it will probably give you a popup, but I SWEAR I didn't make a virus (the popup would be red), I just don't want to pay hundreds of dollars for a liscence. Just click `more info`, then `run anyway`. BOOM! MUCH easier!
 

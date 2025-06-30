@@ -2,9 +2,10 @@
 <p align="center"><img src="mctechtiming-appicon-256x256.png" width=10%></p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/MIT_License-blue?style=flat-square">
+  <img src="https://img.shields.io/badge/License-blue?style=plastic-square&logo=check&label=MIT">
   <img src="https://img.shields.io/badge/Solo_dev-green?style=flat-square">
   <img src="https://img.shields.io/badge/Useful_for_gyms-orange?style=flat-square">
+  <img src="https://img.shields.io/badge/Open_source-lightgreen?style=flat-square">
 </p>
 
 ____

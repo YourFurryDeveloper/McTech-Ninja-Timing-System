@@ -2,6 +2,14 @@ import requests
 import os
 import time
 
+
+# ==========
+
+curVersion = "1.2.2"
+
+# ==========
+
+
 if os.name == 'nt':
     os.system('cls')
 else:
@@ -59,8 +67,6 @@ BG_BRIGHT_BLUE    = "\033[104m"
 BG_BRIGHT_MAGENTA = "\033[105m"
 BG_BRIGHT_CYAN    = "\033[106m"
 BG_BRIGHT_WHITE   = "\033[107m"
-
-curVersion = "1.2.1"
 
 def checkUpdates():
     print(f"{BG_BLUE}{BOLD}   McTech Ninja Timing System V{curVersion}   {RESET}\n")

@@ -1,6 +1,14 @@
-<p align: center;><img src="mctechtiming-appicon-256x256.png" width=10%></p>
+<h1 align="center">McTech Ninja Timing System</h1>
+<p align="center"><img src="mctechtiming-appicon-256x256.png" width=10%></p>
 
-# McTech Ninja Timing System
+<p align="center">
+  <img src="https://img.shields.io/badge/MIT_License-blue?style=flat-square">
+  <img src="https://img.shields.io/badge/Solo_dev-green?style=flat-square">
+  <img src="https://img.shields.io/badge/Useful_for_gyms-orange?style=flat-square">
+</p>
+
+____
+<br />
 A cool recreation of the ninja timing and leaderboard system I made just for fun in 2 days while at Worlds!
 
 #### If you have any inquiries or need help, contact me at mctechdev@icloud.com.

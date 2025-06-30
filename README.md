@@ -37,7 +37,7 @@ ____
 
 ## Running The Prebuilt App
 
-If you are using Windows and don't want to go to all the trouble of installing everything, go to [the latest release](https://github.com/YourFurryDeveloper/McTech-Ninja-Timing-System/releases/tag/V1.1.4) and click McTechDev-App-Windows.zip.
+If you are using Windows and don't want to go to all the trouble of installing everything, go to [the latest release](https://github.com/YourFurryDeveloper/McTech-Ninja-Timing-System/releases/latest) and click McTechDev-App-Windows.zip.
 
 Once you have downloaded the zip file, unzip it and then go into the `McTechDev-App` folder (it may be nested inside another folder, depending on how you unzipped it.), and then just double-click `McTech-Ninja-Timing-System.exe` to run it, and it will probably give you a popup, but I SWEAR I didn't make a virus (the popup would be red), I just don't want to pay hundreds of dollars for a liscence. Just click `more info`, then `run anyway`. BOOM! MUCH easier!
 

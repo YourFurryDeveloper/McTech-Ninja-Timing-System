@@ -16,6 +16,11 @@ else:
 
 updater.checkUpdates()
 
+if os.name == 'nt':
+    os.system('cls')
+else:
+    os.system('clear')
+
 app = Flask(__name__, template_folder=os.path.join(base_path, 'templates'))
 socketio = SocketIO(app, async_mode='threading')
 

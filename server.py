@@ -5,6 +5,7 @@ import os
 import json
 import time
 import sys
+import updater
 
 if getattr(sys, 'frozen', False):
     base_path = sys._MEIPASS  # Where bundled static/template files live (read-only)
@@ -12,6 +13,8 @@ if getattr(sys, 'frozen', False):
 else:
     base_path = os.path.abspath(".")
     data_path = base_path
+
+updater.checkUpdates()
 
 app = Flask(__name__, template_folder=os.path.join(base_path, 'templates'))
 socketio = SocketIO(app, async_mode='threading')

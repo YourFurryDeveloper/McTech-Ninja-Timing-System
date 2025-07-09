@@ -5,7 +5,7 @@ import time
 
 # ==========
 
-curVersion = "1.3.0"
+curVersion = "1.3.1"
 
 # ==========
 
@@ -84,7 +84,7 @@ def checkUpdates():
     if updateVer == curVersion:
         print(f"{BG_GREEN}{BOLD}Versions match ({curVersion}), No updates found. {RESET}")
     else:
-        print(f"{BG_BRIGHT_YELLOW}{BOLD}Version mismatch, update avalible! {RESET}\n")
+        print(f"{BG_BRIGHT_MAGENTA}{BOLD}Version mismatch, update avalible! {RESET}\n")
         print(f"{BG_GREEN}Your version: {curVersion} | Latest version: 1 {RESET}")
         if os.name == 'nt':
             print(f"{BG_GREEN}Go to https://github.com/YourFurryDeveloper/McTech-Ninja-Timing-System/releases/latest and download the latest release! {RESET}")

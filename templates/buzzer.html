@@ -36,6 +36,8 @@
     </style>
 
     <body>
+        <audio src="./sounds/buzzer_finish.wav" id="buzzersound"></audio>
+        
         <button id="buzzer" onclick="sendBuzzer()">BUZZER</button>
 
         <script src="./socket.io.min.js"></script>
@@ -43,7 +45,8 @@
             var socket = io();
 
             function sendBuzzer() {
-                socket.emit("btnpressed", "finished" );
+                socket.emit("btnpressed", "finished_buzzer" );
+                document.getElementById("buzzersound").play();
             }
         </script>
     </body>

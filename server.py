@@ -47,6 +47,9 @@ def getNextRunner():
             if runnerdat[runner]["status"] == "waiting" and runnerdat[runner]["place_runorder"] == 1:
                 return runner
 
+
+# ========== ENDPOINTS ==========
+
 @app.route("/")
 def index():
     return render_template("index.html")
@@ -71,6 +74,9 @@ def buzzer():
 def overlay():
     return render_template("streamoverlay.html")
 
+
+# ========== FILES ==========
+
 @app.route("/runner_data.json")
 def runnerfile():
     return send_file(os.path.join(data_path, "runner_data.json"))
@@ -86,6 +92,21 @@ def socketiofile():
 @app.route("/timer.ttf")
 def timerfont():
     return send_file("./timer.ttf")
+
+
+# ========== SOUNDS ==========
+
+@app.route("/sounds/buzzer_finish.wav")
+def buzzersound():
+    return send_file("./sounds/buzzer_finish.wav")
+
+@app.route("/sounds/obstacle_complete.wav")
+def obstaclesound():
+    return send_file("./sounds/obstacle_complete.wav")
+
+@app.route("/sounds/failing_is_sad_lol.wav")
+def failsound():
+    return send_file("./sounds/failing_is_sad_lol.wav")
 
 global start_time
 global end_time

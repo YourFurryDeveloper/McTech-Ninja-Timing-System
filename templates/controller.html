@@ -129,6 +129,10 @@
     </style>
 
     <body>
+        <audio src="./sounds/buzzer_finish.wav" id="buzzersound"></audio>
+        <audio src="./sounds/obstacle_complete.wav" id="obstaclesound"></audio>
+        <audio src="./sounds/failing_is_sad_lol.wav" id="failsound"></audio>
+
         <h3 id="currunner">Current runner:</h3>
         <h4 id="obstaclenum" style="color: lightgray;">Obstacles Completed:</h4>
         <h4 id="lastobstacle" style="color: lightgray;">Last Obstacle:</h4>
@@ -186,8 +190,12 @@
                     document.getElementById("resumebtn").style.backgroundColor = "rgb(0, 101, 252)";
 
                     startTimer();
-                } else if (btn === "finished" || btn === "failed") {
+                } else if (btn === "finished") {
                     stopTimer();
+                    document.getElementById("buzzersound").play();
+                } else if (btn === "failed") {
+                    stopTimer();
+                    document.getElementById("failsound").play();
                 } else if (btn === "resume") {
                     //if (pauses === 3 && compytpe === "challenge") {
                         //document.getElementById("resumebtn").setAttribute('disabled', '');
@@ -211,6 +219,8 @@
                     //}
                     document.getElementById("runnertime").style.backgroundColor = "blue";
                     pauseTimer();
+                } else if (btn === "obstacle") {
+                    document.getElementById("obstaclesound").play();
                 }
             }
 

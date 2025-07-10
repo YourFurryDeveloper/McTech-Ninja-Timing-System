@@ -4,7 +4,7 @@
 <p align="center">
   <img src="https://img.shields.io/badge/License-blue?style=plastic&logo=check&label=MIT">
   <img src="https://img.shields.io/badge/Solo_dev-green?style=flat">
-  <img src="https://img.shields.io/badge/Useful_for_gyms-orange?style=flat">
+  <img src="https://img.shields.io/badge/Useful_for_small_gyms-orange?style=flat">
   <img src="https://img.shields.io/badge/Open_source-lightgreen?style=flat">
   <img src="https://img.shields.io/github/last-commit/YourFurryDeveloper/McTech-Ninja-Timing-System/main?style=plastic">
 </p>

@@ -14,6 +14,10 @@ ____
 A cool recreation of the ninja timing and leaderboard system I made just for fun in 2 days while at Worlds!
 
 #### If you have any inquiries or need help, contact me at mctechdev@icloud.com.
+
+### Maybe consider supporting the project? :3 (Don't feel inclined to though, lol)
+
+<a href="https://buymeacoffee.com/mctechdev"><img src="https://mindfullywed.com/wp-content/uploads/2022/08/bmc-button.png" width="17%"/></a>
 ____
 <br />
 

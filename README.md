@@ -64,7 +64,7 @@ ____
 
 ### Python Installation
 
-First, go to the [Python download page](https://python.org/downloads), and click the button that says `'Download Python X.XX.X'` (As of right now, it is 3.13.5.)
+First, go to the [Python download page](https://python.org/downloads), and click the button that says `'Download Python X.XX.X'` (As of the time of writing this, it is 3.13.5.)
 
 Once you have downloaded it, install it (obviously), and just use and follow all the default instructions and settings in the installer.
 ____

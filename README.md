@@ -11,7 +11,7 @@
 
 ____
 <br />
-A cool recreation of the ninja timing and leaderboard system I made just for fun in 2 days while at Worlds!
+A ninja timing system I had originally made in two days, but has evolved into a full-on timing system for small gyms!
 
 #### If you have any inquiries or need help, contact me at mctechdev@icloud.com.
 

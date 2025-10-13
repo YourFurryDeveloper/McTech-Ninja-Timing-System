@@ -26,6 +26,7 @@ ____
 If you know how to create a Python Flask webserver and how to deploy it, you probably know how to use this program lol, but I'm making a full-fledged tutorial for people who don't know how to do any of that.
 
 #### NOTE: This will need to be run on a computer or laptop.
+#### NOTE: You NEED to have port 49152 open (not forwarded) OPEN, on your network, or this will NOT work.
 
 ### Table Of Contents (If you are on Windows and want a WAAAY easier experience, I HIGHLY suggest going to [Running the prebuilt app](#running-the-prebuilt-app))
 <br />

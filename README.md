@@ -139,6 +139,7 @@ Here is a list of all the URLS that the system has. (append these to the end of 
 * /timer (Open this on another device if you want, this is the actual timer display, like the ones that hang from the rigs at Worlds.)
 * /buzzer (I highly reccomend opening this on a second phone and setting it where the finish will be. It is literally just a big red buzzer button.)
 * /overlay (This page is for if you are streaming and want a stream overlay. It shows the timer, the competitor's name and division. You can chroma key it out in software like OBS.)
+* /api (Serves the JSON files that contain info about the competition configuration, the obstacles, and runners. The data from this endpoint can be integrated into a custom app or website.)
 
 On the /controller page, you will see 6 buttons.
 * Fail

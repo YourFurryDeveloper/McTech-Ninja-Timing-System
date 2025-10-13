@@ -79,7 +79,7 @@ First, click the green `Code` button located above the file container, and click
 Once you have the zip file downloaded, unzip it. (Double click the file on MacOS, and right click on the file and click `Extract All` on Windows.)
 
 <br />
-Now comes the 'hard' part for some of you (no offense, sorry 😭😭😭)
+Now comes the 'hard' part for some people.
 
 If you're on MacOS, click the command button and space bar (together) and type in `Terminal`. Open terminal.
 

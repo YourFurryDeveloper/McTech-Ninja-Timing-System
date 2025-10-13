@@ -5,7 +5,7 @@ import time
 
 # ==========
 
-curVersion = "1.3.2"
+curVersion = "1.4.2"
 
 # ==========
 

@@ -75,6 +75,26 @@ def overlay():
     return render_template("streamoverlay.html")
 
 
+@app.route('/api')
+def serveApiFile():
+    fullApiFile = {
+        "runnerData": {},
+        "compConfiguration": {},
+        "obstacleData": {}
+    }
+
+    with open("runner_data.json", "r") as runnerdatfile:
+        fullApiFile["runnerData"] = json.load(runnerdatfile)
+
+    with open("comp_config.json", "r") as compconfigfile:
+        fullApiFile["compConfiguration"] = json.load(compconfigfile)
+
+    with open("obstacles.json", "r") as obstacledatfile:
+        fullApiFile["obstacleData"] = json.load(obstacledatfile)
+
+    return jsonify(fullApiFile)
+
+
 # ========== FILES ==========
 
 @app.route("/runner_data.json")
@@ -222,25 +242,6 @@ def handle_runner_dat(obstacles):
     time.sleep(1)
     emit("compdumped")
 
-# ==============================| API ENDPOINT |==============================
-@app.route('/api')
-def serveApiFile():
-    fullApiFile = {
-        "runnerData": {},
-        "compConfiguration": {},
-        "obstacleData": {}
-    }
-
-    with open("runner_data.json", "r") as runnerdatfile:
-        fullApiFile["runnerData"] = json.load(runnerdatfile)
-
-    with open("comp_config.json", "r") as compconfigfile:
-        fullApiFile["compConfiguration"] = json.load(compconfigfile)
-
-    with open("obstacles.json", "r") as obstacledatfile:
-        fullApiFile["obstacleData"] = json.load(obstacledatfile)
-
-    return jsonify(fullApiFile)
 
 if __name__ == "__main__":
     socketio.run(app, host="0.0.0.0", port=49152)

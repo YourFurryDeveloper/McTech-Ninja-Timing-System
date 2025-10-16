@@ -1,11 +1,13 @@
 from flask import Flask, render_template, send_file, jsonify
 from flask_socketio import SocketIO, emit
+from werkzeug.utils import secure_filename
 import logging
 import os
 import json
 import time
 import sys
 import updater
+import base64
 
 if getattr(sys, 'frozen', False):
     base_path = sys._MEIPASS  # Where bundled static/template files live (read-only)
@@ -94,7 +96,6 @@ def serveApiFile():
 
     return jsonify(fullApiFile)
 
-
 # ========== FILES ==========
 
 @app.route("/runner_data.json")
@@ -134,6 +135,7 @@ global end_time
 @socketio.on('connect')
 def handle_connect():
     print("Client connected!")
+
 
 @socketio.on('btnpressed')
 def handle_button(button):

@@ -288,7 +288,7 @@
                 entryDiv.appendChild(runorder_placeP);
                 entryDiv.appendChild(nameinp);
                 entryDiv.appendChild(divisioninp);
-                entryDiv.appendChild(photoinp);
+                //entryDiv.appendChild(photoinp);
 
                 entryHolder.appendChild(entryDiv);
             }
@@ -348,7 +348,7 @@
                 const places = document.querySelectorAll("#runner_place");
                 const names = document.querySelectorAll("#runner_name");
                 const divisions = document.querySelectorAll("#runner_division");
-                const photos = document.querySelectorAll("#runner_photo");
+                //const photos = document.querySelectorAll("#runner_photo");
 
                 document.getElementById("notification_subtitle").innerHTML = "Saving competitors...";
 
@@ -358,7 +358,7 @@
                     let place = places[i];
                     let name = names[i];
                     let division = divisions[i];
-                    let photo = photos[i - 1];
+                    //let photo = photos[i - 1];
 
                     let key = name.value;
                     if (!competitor_data[key]) {

@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>McTech Ninja Timing DEBUG GRID</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, viewport-fit=cover">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+    </head>
+
+    <style>
+        html {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            background-color: black;
+            color: white;
+            scroll-behavior: smooth;
+        }
+
+        #topbar {
+            position: fixed;
+            height: 40px;
+            top: 0;
+            left: 0;
+            right: 0;
+            background-color: rgb(45, 45, 45);
+            display: flex;
+            align-items: center;
+            padding-left: 10px;
+        }
+
+        #topbarHeader {
+            font-size: 20px;
+            margin-right: 15px;
+        }
+
+        .topbarLabel {
+            font-size: 15px;
+            margin-right: 10px;
+        }
+
+        .topbarInput {
+            border-radius: 5px;
+            padding-left: 5px;
+            outline: none;
+            margin-right: 15px;
+        }
+
+        #mainpanel {
+            position: fixed;
+            top: 40px;
+            bottom: 0;
+            left: 0;
+            right: 0;
+
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .sitePageFrame {
+            flex: 1;
+        }
+    </style>
+
+    <body>
+        <div id="topbar">
+            <p id="topbarHeader">MNTS Debug Panel |</p>
+            <p class="topbarLabel">Host URL:</p>
+            <input class="topbarInput" id="rootUrlInp" type="url" value="localhost:49152">
+            <p id="topbarHeader"> | </p>
+            <button class="topbarInput" onclick="pushConfig()">Push sample data</button>
+        </div>
+        <div id="mainpanel">
+            <iframe class="sitePageFrame" src="/config" name="/config"></iframe>
+            <iframe class="sitePageFrame" src="/controller" name="/controller"></iframe>
+            <iframe class="sitePageFrame" src="/timer" name="/timer"></iframe>
+            <iframe class="sitePageFrame" src="/buzzer" name="/buzzer"></iframe>
+            <iframe class="sitePageFrame" src="/" name="/"></iframe>
+            <iframe class="sitePageFrame" src="/overlay" name="/overlay"></iframe>
+        </div>
+
+        <script src="./socket.io.min.js"></script>
+        <script>
+            var socket = io();
+
+            function pushConfig() {
+                let comp_config = {};
+
+                comp_config["comp_type"] = "flow";
+                comp_config["time_limit"] = 1;
+                comp_config["comp_timetype"] = "mins";
+                comp_config["comp_name"] = "McTech Ninja Debug Run";
+                comp_config["comp_division"] = "Mixed";
+                comp_config["course_name"] = "Debug Rig";
+
+                socket.emit("push_compconfig", comp_config);
+                pushCompetitors();
+            }
+
+            function pushCompetitors() {
+                let competitor_data = {};
+
+                for (let i = 1; i < 10; i++) {
+                    let key = `Runner ${i}`;
+                    if (!competitor_data[key]) {
+                        competitor_data[key] = {};
+                    }
+
+                    competitor_data[key]["runner_name"] = `Runner ${i}`;
+                    competitor_data[key]["division"] = `Runner ${i} division`;
+                    competitor_data[key]["place_runorder"] = parseInt(i);
+                    competitor_data[key]["place"] = 0;
+                    competitor_data[key]["result"] = "";
+                    competitor_data[key]["time"] = "";
+                    competitor_data[key]["obstacles"] = 0;
+                    competitor_data[key]["status"] = "waiting";
+                }
+
+                socket.emit("push_competitors", competitor_data);
+                pushObstacles();
+            }
+
+            function pushObstacles() {
+                let obstacles = {};
+
+                for (let i = 0; i < 10; i++) {
+                    let key = `Obstacle ${i}`;
+                    if (!obstacles[key]) {
+                        obstacles[key] = {};
+                    }
+
+                    obstacles[key] = key;
+                }
+
+                socket.emit("push_obstacles", obstacles);
+            }
+
+            document.getElementById("rootUrlInp").addEventListener("input", function() {
+                for (pageFrame of document.getElementsByClassName("sitePageFrame")) {
+                    pageFrame.src = document.getElementById("rootUrlInp").value + pageFrame.name;
+                }
+            })
+        </script>
+    </body>
+</html>

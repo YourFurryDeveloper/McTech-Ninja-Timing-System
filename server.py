@@ -76,6 +76,10 @@ def buzzer():
 def overlay():
     return render_template("streamoverlay.html")
 
+@app.route("/debugGrid")
+def debug():
+    return render_template("debug.html")
+
 
 @app.route('/api')
 def serveApiFile():

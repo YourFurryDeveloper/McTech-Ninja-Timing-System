@@ -94,7 +94,7 @@
                 <hr style="margin-top: -5px; margin-bottom: 20px;">
 
                 <div class="entry_key">
-                    <p id="runner_place"></p>
+                    <p id="runner_place">Place</p>
                     <p id="runner_name">Name</p>
                     <p id="runner_result">Result</p>
                     <p id="runner_obstacles">Obstacles</p>
@@ -213,7 +213,7 @@
             function updateInfo(runnerData) {
                 document.getElementById("comptitle").innerHTML = runnerData.comp_name;
                 document.getElementById("title").innerHTML = runnerData.course_name;
-                document.getElementById("runner_place").innerHTML = runnerData.comp_division;
+                //document.getElementById("runner_place").innerHTML = runnerData.comp_division;
 
                 const subtitles = document.querySelectorAll("#subtitle");
 

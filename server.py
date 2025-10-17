@@ -211,6 +211,7 @@ def handle_button(button):
             with open("obstacles.json", "r") as obstaclesraw:
                 obstacles = json.load(obstaclesraw)
                 runnerdat[getCurRunner()]["result"] = obstacles[str(runnerdat[getCurRunner()]["obstacles"])]
+                #runnerdat[getCurRunner()]["obstacle_times"][obstacles[str(runnerdat[getCurRunner()]["obstacles"])]] = elapsed = (end_time - start_time) + old_time
 
             print(f"\nSet runner {getCurRunner()} obstacles to {button}")
             print(f"Set runner {getCurRunner()} result to {runnerdat[getCurRunner()]["result"]}")

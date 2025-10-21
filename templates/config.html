@@ -44,35 +44,39 @@
         }
 
         .entry, .entry_key {
-            display: flex;
             align-items: center;
+
+            display: grid;
+            grid-template-columns: 0.3fr 1fr 1fr;
+            grid-template-rows: auto auto;
+            gap: 20px;
+
             width: 98.6%;
             height: 40px;
             border-top: 1px solid white;
             border-bottom: 1px solid white;
             padding-left: 10px;
-            flex-direction: row;
+        }
+
+        .entry_key {
+            padding-bottom: 10px;
         }
 
         .entry {
             height: 50px;
         }
 
-        #runner_place, #runner_name, #runner_result, #runner_obstacles, #runner_time, #runner_division {
-            flex-basis: 100%;
-        }
-
         .entrytext {
             outline: none;
             font-size: 15px;
-            color: rgb(0, 0, 0);
-            background-color: rgb(255, 255, 255);
-            margin-right: 200px;
+            color: rgb(255, 255, 255);
+            background-color: rgba(255, 255, 255, 0.194);
+            /*margin-right: 200px;*/
             border: none;
-            padding: 5px;
             border-left: 1px solid white;
             border-bottom: 1px solid white;
             border-radius: 5px;
+            padding-left: 5px;
         }
 
         #competitor_controls_add {
@@ -216,9 +220,10 @@
 
         <div id="runnercont">
             <div class="entry_key">
-                <p id="runner_place">#</p>
-                <p id="runner_name">Name</p>
-                <p id="runner_division">Division</p>
+                <p class="runnerGridText" id="runner_place">#</p>
+                <p class="runnerGridText" id="runner_name">Name</p>
+                <p class="runnerGridText" id="runner_division">Division</p>
+                <!--<p class="runnerGridText">Competitor Image</p>-->
             </div>
             <br>
             <div id="entry_holder">
@@ -230,6 +235,26 @@
             var socket = io();
 
             let competitors = 0;
+
+            function convertCompImage(file, callback) {
+                if (!file) {
+                    callback("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAKoAAACUCAMAAAA02EJtAAAAP1BMVEWoqa3///+lpqqoqauio6f5+fn8/Pymqq3FxcefoKS+v8Hk5OXMzc6trrHv7/Dy8vPa29y0tLjT1NWWl5u3uLl7goPKAAAESklEQVR4nO2c2WKjMAxFQTaUfUn5/28dGyZN2kAS2VdyOpPz2KdbR9ZusuzNmzdv3rz5/zCe1CL+NYiMoZXUSu5B1mb90jSVp1lm94eX1Es1Nd3UDkWZbxRjO52arH4xte7nXqaiyG8oi7Z5JVsgmrsdmWeK05K9iFg7T3eErmfbLq9gB2QeCV1Pts1sSpUfTmhWPda50aW1Aju3zyrN83ZJeLD18sRvf2UFVZ0q4poTR6hnMmmMwE5cpc4I9H3sR5hSpzXBuRLjQl0z9Nr2SkFnup2rrta6C1Xq7latqdRW5WNJh3SK/pXmMUJpXix6V8sGXqkzg5pUG2GoGyclE6A+xlBXylnnXMP91IVWRSrxcpSDY200tCIOVetYoy11ZZYXatmZ3z6tfMyyAEv1lOJKqcEoVQivYVnqHuIXqx9QUkfhMEANyFQdlbDU6PB/oRO2AJipOmOVVWpgpuqMVVZqH5VT/6B3/7qgVKDS3LkAQakzUmojKRUXqzwuXr2lZr6oRkoVrbB+kVT6RVLRtvpbpMrmK2i/Kkh8t+IK4UoQmAOUvazUyMbaNYNsS5hApbVnEq4CgI5VumCJawJfUwi3rYyBGesgKjRDtIHPTNItC0Af+C/ybcsaVAiO8u01VBqgMhGC+ADpULWCca3SrZUNRIdtnElj1Io4VlcAaEg18U7AX38VqdFZ6zph05m1x7YuT5qbFlGZgHC38juURZjr2KsdqrcxmsMb7Y3yZlj4UEA4o97BhmktqwTbdmFaUyj1NsBOXAptOz1je6bPGmadeLoDmYkTt1o9L7WDaZ7XWiXU6bGfTw7d2s+kG8zeXLv2uXMdurn+SCg0OzGcwDj59wz+WmlfLUM9fyt43lZtdaWSufds4Yii69VNtm4Cc6uhUt0JdUlgRMKq6F6NsVXcUuiaXGm4A7KsGLXHpPMQixB9gEFj2zYwT/2JQt5qO1DTsuyEDRa1EeikrmMLOamYhdC/UkVftCBHQZ5J7AkWbh/wS6uQVLxSF7mshL0id+wunOA60QsWF/AzAezSwjXYWGBcNMUtg/4EGmNNVNL3iAGaFAJd/w4tsH7BDVb3wW0xkUFurOyBWbv2r5WB+7X7jKDZoIzv/w5okCHop74oIR4LNVW/D2Lmjl2uPCY+wBJ0EfwORbQXQGfTx0yxgSBiPsUk9mZJpNNHxD4W01MamWLFPgPm0UY4Acg70OeJeTGKa1A8R0QBq3f9N8KdgEae8p3gPcFa+VAdNiwOyBWpxwRmArWqp9oYgqRK1tOHhK0Ka3uqjTB/leD3900BvlDlSPVFgAXoO9UNvms1VqWkuqVgu1ZDaZTmObuDpVX93cLuCqXw/xvsKGCUCtVbuKUrMTZ9wHBHmmlC1QYzYIV+rgwBcxMX98kKPiPrzWCqqLrBiq0psuoLFSdepUoANlj3KuWt4nw8xrgEIOGtckGAI1V8pHKf/fT6D+hyP3t26L1tAAAAAElFTkSuQmCC");
+                    return;
+                }
+
+                const reader = new FileReader();
+
+                reader.onload = function () {
+                    callback(reader.result);
+                };
+
+                reader.onerror = function (error) {
+                    console.error("Error reading file:", error);
+                    callback("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAKoAAACUCAMAAAA02EJtAAAAP1BMVEWoqa3///+lpqqoqauio6f5+fn8/Pymqq3FxcefoKS+v8Hk5OXMzc6trrHv7/Dy8vPa29y0tLjT1NWWl5u3uLl7goPKAAAESklEQVR4nO2c2WKjMAxFQTaUfUn5/28dGyZN2kAS2VdyOpPz2KdbR9ZusuzNmzdv3rz5/zCe1CL+NYiMoZXUSu5B1mb90jSVp1lm94eX1Es1Nd3UDkWZbxRjO52arH4xte7nXqaiyG8oi7Z5JVsgmrsdmWeK05K9iFg7T3eErmfbLq9gB2QeCV1Pts1sSpUfTmhWPda50aW1Aju3zyrN83ZJeLD18sRvf2UFVZ0q4poTR6hnMmmMwE5cpc4I9H3sR5hSpzXBuRLjQl0z9Nr2SkFnup2rrta6C1Xq7latqdRW5WNJh3SK/pXmMUJpXix6V8sGXqkzg5pUG2GoGyclE6A+xlBXylnnXMP91IVWRSrxcpSDY200tCIOVetYoy11ZZYXatmZ3z6tfMyyAEv1lOJKqcEoVQivYVnqHuIXqx9QUkfhMEANyFQdlbDU6PB/oRO2AJipOmOVVWpgpuqMVVZqH5VT/6B3/7qgVKDS3LkAQakzUmojKRUXqzwuXr2lZr6oRkoVrbB+kVT6RVLRtvpbpMrmK2i/Kkh8t+IK4UoQmAOUvazUyMbaNYNsS5hApbVnEq4CgI5VumCJawJfUwi3rYyBGesgKjRDtIHPTNItC0Af+C/ybcsaVAiO8u01VBqgMhGC+ADpULWCca3SrZUNRIdtnElj1Io4VlcAaEg18U7AX38VqdFZ6zph05m1x7YuT5qbFlGZgHC38juURZjr2KsdqrcxmsMb7Y3yZlj4UEA4o97BhmktqwTbdmFaUyj1NsBOXAptOz1je6bPGmadeLoDmYkTt1o9L7WDaZ7XWiXU6bGfTw7d2s+kG8zeXLv2uXMdurn+SCg0OzGcwDj59wz+WmlfLUM9fyt43lZtdaWSufds4Yii69VNtm4Cc6uhUt0JdUlgRMKq6F6NsVXcUuiaXGm4A7KsGLXHpPMQixB9gEFj2zYwT/2JQt5qO1DTsuyEDRa1EeikrmMLOamYhdC/UkVftCBHQZ5J7AkWbh/wS6uQVLxSF7mshL0id+wunOA60QsWF/AzAezSwjXYWGBcNMUtg/4EGmNNVNL3iAGaFAJd/w4tsH7BDVb3wW0xkUFurOyBWbv2r5WB+7X7jKDZoIzv/w5okCHop74oIR4LNVW/D2Lmjl2uPCY+wBJ0EfwORbQXQGfTx0yxgSBiPsUk9mZJpNNHxD4W01MamWLFPgPm0UY4Acg70OeJeTGKa1A8R0QBq3f9N8KdgEae8p3gPcFa+VAdNiwOyBWpxwRmArWqp9oYgqRK1tOHhK0Ka3uqjTB/leD3900BvlDlSPVFgAXoO9UNvms1VqWkuqVgu1ZDaZTmObuDpVX93cLuCqXw/xvsKGCUCtVbuKUrMTZ9wHBHmmlC1QYzYIV+rgwBcxMX98kKPiPrzWCqqLrBiq0psuoLFSdepUoANlj3KuWt4nw8xrgEIOGtckGAI1V8pHKf/fT6D+hyP3t26L1tAAAAAElFTkSuQmCC");
+                };
+
+                reader.readAsDataURL(file);
+            }
 
             function addRunorderEntry() {
                 competitors++;
@@ -255,9 +280,15 @@
                 divisioninp.id = "runner_division";
                 divisioninp.className = "entrytext";
 
+                const photoinp = document.createElement("input");
+                photoinp.type = "file";
+                photoinp.id = "runner_photo";
+                photoinp.className = "entrytext";
+
                 entryDiv.appendChild(runorder_placeP);
                 entryDiv.appendChild(nameinp);
                 entryDiv.appendChild(divisioninp);
+                //entryDiv.appendChild(photoinp);
 
                 entryHolder.appendChild(entryDiv);
             }
@@ -309,7 +340,7 @@
                 comp_config["comp_division"] = compdivision;
                 comp_config["course_name"] = coursename;
 
-                socket.emit("push_compconfig", comp_config );
+                socket.emit("push_compconfig", comp_config);
                 pushCompetitors();
             }
 
@@ -317,6 +348,7 @@
                 const places = document.querySelectorAll("#runner_place");
                 const names = document.querySelectorAll("#runner_name");
                 const divisions = document.querySelectorAll("#runner_division");
+                //const photos = document.querySelectorAll("#runner_photo");
 
                 document.getElementById("notification_subtitle").innerHTML = "Saving competitors...";
 
@@ -326,6 +358,7 @@
                     let place = places[i];
                     let name = names[i];
                     let division = divisions[i];
+                    //let photo = photos[i - 1];
 
                     let key = name.value;
                     if (!competitor_data[key]) {
@@ -339,10 +372,12 @@
                     competitor_data[key]["result"] = "";
                     competitor_data[key]["time"] = "";
                     competitor_data[key]["obstacles"] = 0;
+                    competitor_data[key]["obstacle_times"] = {};
                     competitor_data[key]["status"] = "waiting";
+                    //competitor_data[key]["runner_pfp"] = b64response;
                 }
 
-                socket.emit("push_competitors", competitor_data );
+                socket.emit("push_competitors", competitor_data);
                 pushObstacles();
             }
 
@@ -366,7 +401,7 @@
                     obstacles[key] = name.value;
                 }
 
-                socket.emit("push_obstacles", obstacles );
+                socket.emit("push_obstacles", obstacles);
             }
 
             socket.on("compdumped", function(){

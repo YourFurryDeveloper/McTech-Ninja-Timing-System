@@ -1,11 +1,13 @@
 from flask import Flask, render_template, send_file, jsonify
 from flask_socketio import SocketIO, emit
+from werkzeug.utils import secure_filename
 import logging
 import os
 import json
 import time
 import sys
 import updater
+import base64
 
 if getattr(sys, 'frozen', False):
     base_path = sys._MEIPASS  # Where bundled static/template files live (read-only)
@@ -74,6 +76,29 @@ def buzzer():
 def overlay():
     return render_template("streamoverlay.html")
 
+@app.route("/debugGrid")
+def debug():
+    return render_template("debug.html")
+
+
+@app.route('/api')
+def serveApiFile():
+    fullApiFile = {
+        "runnerData": {},
+        "compConfiguration": {},
+        "obstacleData": {}
+    }
+
+    with open("runner_data.json", "r") as runnerdatfile:
+        fullApiFile["runnerData"] = json.load(runnerdatfile)
+
+    with open("comp_config.json", "r") as compconfigfile:
+        fullApiFile["compConfiguration"] = json.load(compconfigfile)
+
+    with open("obstacles.json", "r") as obstacledatfile:
+        fullApiFile["obstacleData"] = json.load(obstacledatfile)
+
+    return jsonify(fullApiFile)
 
 # ========== FILES ==========
 
@@ -114,6 +139,7 @@ global end_time
 @socketio.on('connect')
 def handle_connect():
     print("Client connected!")
+
 
 @socketio.on('btnpressed')
 def handle_button(button):
@@ -185,6 +211,7 @@ def handle_button(button):
             with open("obstacles.json", "r") as obstaclesraw:
                 obstacles = json.load(obstaclesraw)
                 runnerdat[getCurRunner()]["result"] = obstacles[str(runnerdat[getCurRunner()]["obstacles"])]
+                #runnerdat[getCurRunner()]["obstacle_times"][obstacles[str(runnerdat[getCurRunner()]["obstacles"])]] = elapsed = (end_time - start_time) + old_time
 
             print(f"\nSet runner {getCurRunner()} obstacles to {button}")
             print(f"Set runner {getCurRunner()} result to {runnerdat[getCurRunner()]["result"]}")
@@ -222,25 +249,6 @@ def handle_runner_dat(obstacles):
     time.sleep(1)
     emit("compdumped")
 
-# ==============================| API ENDPOINT |==============================
-@app.route('/api')
-def serveApiFile():
-    fullApiFile = {
-        "runnerData": {},
-        "compConfiguration": {},
-        "obstacleData": {}
-    }
-
-    with open("runner_data.json", "r") as runnerdatfile:
-        fullApiFile["runnerData"] = json.load(runnerdatfile)
-
-    with open("comp_config.json", "r") as compconfigfile:
-        fullApiFile["compConfiguration"] = json.load(compconfigfile)
-
-    with open("obstacles.json", "r") as obstacledatfile:
-        fullApiFile["obstacleData"] = json.load(obstacledatfile)
-
-    return jsonify(fullApiFile)
 
 if __name__ == "__main__":
     socketio.run(app, host="0.0.0.0", port=49152)

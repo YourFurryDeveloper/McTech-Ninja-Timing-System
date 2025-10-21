@@ -118,7 +118,6 @@ def socketiofile():
 def timerfont():
     return send_file("./timer.ttf")
 
-
 # ========== SOUNDS ==========
 
 @app.route("/sounds/buzzer_finish.wav")

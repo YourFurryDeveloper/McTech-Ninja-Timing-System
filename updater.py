@@ -5,7 +5,7 @@ import time
 
 # ==========
 
-curVersion = "1.4.2"
+curVersion = "1.5.4"
 
 # ==========
 
@@ -32,7 +32,7 @@ FG_RED     = "\033[31m"
 FG_GREEN   = "\033[32m"
 FG_YELLOW  = "\033[33m"
 FG_BLUE    = "\033[34m"
-FG_MAGENTA = "\033[35m" 
+FG_MAGENTA = "\033[35m"
 FG_CYAN    = "\033[36m"
 FG_WHITE   = "\033[37m"
 FG_RESET   = "\033[39m"
